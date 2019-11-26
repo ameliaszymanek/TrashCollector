@@ -15,8 +15,6 @@ namespace TrashCollector.Models
         public string StreetAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-
-        [ForeignKey("Zipcode")]
         public int Zipcode { get; set; }
         public bool IsSuspended { get; set; }
         public double Balance { get; set; }
