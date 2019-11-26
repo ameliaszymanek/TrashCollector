@@ -1,0 +1,22 @@
+﻿@model TrashCollector.Models.Customer
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<div class="form-horizontal">
+    <h4>Customer</h4>
+    <h2>Edit Details</h2>
+    <hr />
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*add remainder of properties customer has to fill out*@
+    
