@@ -38,20 +38,17 @@ namespace TrashCollector.Controllers
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Create(Customer customer)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "CustomerId,Name,StreetAddress,City,State,Zipcode,PickupDay,Balance,IsSuspended,ExtraPickupDate,StartDate,EndDate")]Customer customer)
         {
-            try
+            if(ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
                 context.Customers.Add(customer);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Customer", new { customer.CustomerId });
             }
-            catch
-            {
+            
                 return View(customer);
-            }
         }
 
         // GET: Customer/Edit/5
