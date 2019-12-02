@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,11 +11,14 @@ namespace TrashCollector.Controllers
 {
     public class CustomerController : Controller
     {
-        private ApplicationDbContext context = new ApplicationDbContext();
+        public ApplicationDbContext context = new ApplicationDbContext();
+
         // GET: Customer
         public ActionResult Index()
         {
-            return View();
+            string userId = User.Identity.GetUserId();
+            Customer customerInDB = context.Customers.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            return View(customerInDB);
 
         }
 
@@ -24,28 +29,24 @@ namespace TrashCollector.Controllers
            
             return View(customer);
         }
-
-        //private ActionResult View(object p)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        // GET: Customer/Create
         public ActionResult Create()
         {
-            return View();
+            
+            return View(new Customer());
         }
 
         // POST: Customer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CustomerId,Name,StreetAddress,City,State,Zipcode,PickupDay,Balance,IsSuspended,ExtraPickupDate,StartDate,EndDate")]Customer customer)
+        public ActionResult Create(Customer customer)
         {
             if(ModelState.IsValid)
             {
+                var customerLoggedIn = User.Identity.GetUserId();
+                customer.ApplicationId = customerLoggedIn;
                 context.Customers.Add(customer);
                 context.SaveChanges();
-                return RedirectToAction("Details", "Customer", new { customer.CustomerId });
+                return RedirectToAction("Details", "Customer", new { id = customer.ApplicationId } );
             }
             
                 return View(customer);
@@ -60,22 +61,11 @@ namespace TrashCollector.Controllers
 
         // POST: Customer/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Customer customer)
+        public ActionResult Edit(Customer customer)
         {
-            context.Entry(customer).State = System.Data.Entity.EntityState.Modified;
+            context.Entry(customer).State = EntityState.Modified;
             context.SaveChanges();
-            return RedirectToAction("Index");
-            //return View(customer);
-            //try
-            //{
-            //    // TODO: Add update logic here
-
-            //    return RedirectToAction("Index");
-            //}
-            //catch
-            //{
-            //    return View();
-            //}
+            return RedirectToAction("Details", "Customer", new { id = customer.ApplicationId });
         }
 
         // GET: Customer/Delete/5

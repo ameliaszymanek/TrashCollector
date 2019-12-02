@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrashCollector.Models.Customer>
+﻿@model TrashCollector.Models.Customer
 
 @using (Html.BeginForm())
 {
@@ -7,6 +7,8 @@
         <h4>Customer</h4>
         <h2>Edit Details</h2>
         <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ApplicationId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -105,7 +107,7 @@
     </div>
  }
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to Details", "Details", "Customer", new { id = Model.CustomerId })
     </div>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
