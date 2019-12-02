@@ -72,7 +72,7 @@ namespace TrashCollector.Controllers
         {
             context.Entry(customer).State = EntityState.Modified;
             context.SaveChanges();
-            return RedirectToAction("Edit", "Customer", new { id = customer.ApplicationId });
+            return RedirectToAction("Details", new { id = customer.CustomerId });
         }
 
 

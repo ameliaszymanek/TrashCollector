@@ -6,6 +6,11 @@
 <div>
     <h4>Customer</h4>
     <hr />
+
+    
+    @Html.HiddenFor(model => model.ApplicationId)
+    @Html.HiddenFor(model => model.CustomerId)
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
