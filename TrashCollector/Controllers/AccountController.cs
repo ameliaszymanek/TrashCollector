@@ -179,7 +179,7 @@ namespace TrashCollector.Controllers
 
                     if (model.UserRoles == "Employee")
                     {
-                        return RedirectToAction("Index", "Employee");
+                        return RedirectToAction("Create", "Employee");
                     }
                 }
                 AddErrors(result);
