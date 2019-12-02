@@ -9,6 +9,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ApplicationId)
+        @Html.HiddenFor(model => model.CustomerId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -106,8 +107,9 @@
 
     </div>
  }
+    @*problem here cannot save edit changes*@
     <div>
-        @Html.ActionLink("Back to Details", "Details", "Customer", new { id = Model.CustomerId })
+        @Html.ActionLink("Back to Details", "Details", new { id = Model.CustomerId })
     </div>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

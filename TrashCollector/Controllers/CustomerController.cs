@@ -29,6 +29,13 @@ namespace TrashCollector.Controllers
            
             return View(customer);
         }
+
+        //private ActionResult View(object p)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        // GET: Customer/Create
         public ActionResult Create()
         {
             
@@ -46,7 +53,7 @@ namespace TrashCollector.Controllers
                 customer.ApplicationId = customerLoggedIn;
                 context.Customers.Add(customer);
                 context.SaveChanges();
-                return RedirectToAction("Details", "Customer", new { id = customer.ApplicationId } );
+                return RedirectToAction("Details", "Customer", new { id = customer.CustomerId } );
             }
             
                 return View(customer);
@@ -65,8 +72,9 @@ namespace TrashCollector.Controllers
         {
             context.Entry(customer).State = EntityState.Modified;
             context.SaveChanges();
-            return RedirectToAction("Details", "Customer", new { id = customer.ApplicationId });
+            return RedirectToAction("Edit", "Customer", new { id = customer.ApplicationId });
         }
+
 
         // GET: Customer/Delete/5
         //public ActionResult Delete(int id)
