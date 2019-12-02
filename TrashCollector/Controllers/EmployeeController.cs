@@ -16,9 +16,12 @@ namespace TrashCollector.Controllers
         {
             //view is going to be a list of customers with same zipcode
             string userId = User.Identity.GetUserId();
+            //current date
+            string currentDay = DateTime.Today.DayOfWeek.ToString();
             Employee employeeInDB = context.Employees.Where(e => e.ApplicationId == userId ).SingleOrDefault();
-            List<Customer> customers = context.Customers.Where(c => c.Zipcode == employeeInDB.Zipcode).ToList();
-            return View(customers);
+            List<Customer> customersInZip = context.Customers.Where(c => c.Zipcode == employeeInDB.Zipcode).ToList();
+            List<Customer> customersInZipAndCurrentDay = customersInZip.Where(c => c.PickUpDay == currentDay).ToList();
+            return View("Index", customersInZipAndCurrentDay);
         }
 
         // GET: Employee/Details/5
