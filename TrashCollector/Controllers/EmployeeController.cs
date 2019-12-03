@@ -24,6 +24,14 @@ namespace TrashCollector.Controllers
             return View("Index", customersInZipAndCurrentDay);
         }
 
+        // GET: Employee/DayView
+        public ActionResult DayView (int? id)
+        {
+            //if statements
+
+            return View("Day View", ???);
+        }
+
         // GET: Employee/Details/5
         public ActionResult Details(int id)
         {
