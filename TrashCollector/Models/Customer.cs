@@ -22,6 +22,8 @@ namespace TrashCollector.Models
         public string ExtraPickUpDate { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
+        
+        public bool PickupConfirmed { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }

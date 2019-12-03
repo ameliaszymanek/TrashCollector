@@ -64,26 +64,30 @@ namespace TrashCollector.Controllers
             return View(employee);
         }
 
-        // GET: Employee/Edit/5
+        // GET: Employee/Edit/Customer PickupConfirmed
         public ActionResult Edit(int id)
         {
-            return View();
+            var CustomerToEdit = context.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+            return View(CustomerToEdit);
         }
 
-        // POST: Employee/Edit/5
+        // POST: Employee/Edit/Customer PickupConfirmed
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Customer customer)
         {
-            try
+            var CustomerToEdit = context.Customers.Where(c => c.CustomerId == id).SingleOrDefault();
+            CustomerToEdit.PickupConfirmed = customer.PickupConfirmed;
+            if(CustomerToEdit.PickupConfirmed == true)
             {
-                // TODO: Add update logic here
+                CustomerToEdit.Balance += 20.25;
+                context.SaveChanges();
+                return RedirectToAction("Index", "Employee");
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            CustomerToEdit.PickupConfirmed = false;
+            context.SaveChanges();
+            return RedirectToAction("Index","Employee");
+
         }
 
         // GET: Employee/Delete/5
