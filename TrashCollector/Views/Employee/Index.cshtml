@@ -4,6 +4,10 @@
     ViewBag.Title = "Index";
 }
 
+@*@Html.HiddenFor(model => model.ApplicationId)
+@Html.HiddenFor(model => model.CustomerId)
+@Html.HiddenFor(model => model.employeeInDB)*@
+
 <h2>Today's Customers:</h2>
 
 <div>
@@ -53,19 +57,22 @@
                     @Html.DisplayFor(modelItem => item.PickUpDay)
                 </td>
             </tr>
-         }
+        }
     </table>
 </div>
 
 
 
 @* not sure what model. has to be passed through...it'll be a list of customers for specific day (look at employee controller
-   for how index list view is populated. will have to filter out based on == specific day of the week *@
+    for how index list view is populated. will have to filter out based on == specific day of the week *@
 <div>
-    <p>
-        @Html.ActionLink("Monday", "DayView", new { id = Model.EmployeeId }) | 
-
-    </p>
+    @Html.ActionLink("Monday", "DayView", "Employee", new { Day = "Monday" }, null)
+    @Html.ActionLink("Tuesday", "DayView", "Employee", new { Day = "Tuesday" }, null)
+    @Html.ActionLink("Wednesday", "DayView", "Employee", new { Day = "Wednesday" }, null)
+    @Html.ActionLink("Thursday", "DayView", "Employee", new { Day = "Thursday" }, null)
+    @Html.ActionLink("Friday", "DayView", "Employee", new { Day = "Friday" }, null)
+    @Html.ActionLink("Saturday", "DayView", "Employee", new { Day = "Saturday" }, null)
+    @Html.ActionLink("Sunday", "DayView", "Employee", new { Day = "Sunday" }, null)
 </div>
 
 

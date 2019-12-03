@@ -25,11 +25,13 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee/DayView
-        public ActionResult DayView (int? id)
+        public ActionResult DayView (string Day)
         {
-            //if statements
-
-            return View("Day View", ???);
+            string userId = User.Identity.GetUserId();
+            Employee employeeInDB = context.Employees.Where(e => e.ApplicationId == userId).SingleOrDefault();
+            List<Customer> customersInZip = context.Customers.Where(c => c.Zipcode == employeeInDB.Zipcode).ToList();
+            List<Customer> customersInZipAndDay = customersInZip.Where(c => c.PickUpDay == Day).ToList();
+            return View("DayView", customersInZipAndDay);
         }
 
         // GET: Employee/Details/5
