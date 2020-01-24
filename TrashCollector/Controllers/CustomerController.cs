@@ -16,9 +16,10 @@ namespace TrashCollector.Controllers
         // GET: Customer
         public ActionResult Index()
         {
-            string userId = User.Identity.GetUserId();
-            Customer customerInDB = context.Customers.Where(c => c.ApplicationId == userId).SingleOrDefault();
-            return View(customerInDB);
+            //string userId = User.Identity.GetUserId();
+            //Customer customerInDB = context.Customers.Where(c => c.ApplicationId == userId).SingleOrDefault();
+            //return View(customerInDB);
+            return View();
 
         }
 
@@ -36,6 +37,7 @@ namespace TrashCollector.Controllers
         //}
 
         // GET: Customer/Create
+        [HttpGet]
         public ActionResult Create()
         {
             

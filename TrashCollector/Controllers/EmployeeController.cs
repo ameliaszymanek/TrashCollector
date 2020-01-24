@@ -41,6 +41,7 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View(new Employee());
